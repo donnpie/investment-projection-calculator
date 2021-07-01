@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ddd;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 10%;
+    justify-content: center;
+
+    margin-top: 20px;
+}
+
+.input {
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8E8E8E;
+    color: #FFF;
+}
+
+.input:hover {
+    /* cursor: pointer; */
+}
+
+/* How to not have border when input is selected? */
+ 
+
+.input::placeholder {
+    color: #ddd;
+}
+
+.button {
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8E8E8E;
+    color: #FFF;
+}
+
+.button:hover {
+    border: solid 1px black;
+    cursor: pointer;
+    background-color: #ddd;
+    color: #8E8E8E;
+    transition: background-color 500ms ease;
+    /* transition: border-color 500ms ease; */
+
+}
