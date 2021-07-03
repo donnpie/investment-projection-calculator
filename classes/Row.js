@@ -2,7 +2,6 @@
 
 class Row {
     constructor(period, year, age, ob, contributions) {
-        //TODO: Add validation
         this.period = period;
         this.year = year;
         this.age = age;

@@ -1,4 +1,4 @@
-
+//This files contains the logic that drives the application
 
 const startYear = document.getElementById('year');
 const startAge = document.getElementById('age');
@@ -8,14 +8,16 @@ const numberOfPeriods = document.getElementById('number-of-periods');
 const contributionIncrease = document.getElementById('contribution-increase');
 const growthRate = document.getElementById('growth-rate');
 
-const errorElem = document.getElementById('error')
+const errorElem = document.getElementById('error');
 
 const form = document.getElementById('input-form');
 
+//When user clicks Calculate button
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     errorMessages = [];
-    //Toggle input box colors when there is an error
+
+    //Validate inputs
     validate(startYear, 'Start year is required', errorMessages)
     validate(startAge, 'Start age is required', errorMessages)
     validate(openingBalance, 'Opening balance is required', errorMessages)
@@ -23,18 +25,23 @@ form.addEventListener('submit', (e) => {
     validate(numberOfPeriods, 'Number of periods is required', errorMessages)
     validate(contributionIncrease, 'Contribution increase is required', errorMessages)
     validate(growthRate, 'Growth rate is required', errorMessages)
-    //console.log(typeof(startYear.value));
-    
-    
-    //Print error messages to screen
+
+    //Print error messages to screen if there are any error
     if (errorMessages.length > 0) {
-        //alert(errorMessages); 
         errorElem.innerText = errorMessages.join(', ');
         return;
     }
-    //console.log (errorMessages.length);
-    //console.log(typeof(parseInt(startYear.value)));
-    console.log(typeof(parseInt(numberOfPeriods.value)));
+
+    //Validation succeeded - reset classes and clear error messages
+    setClass(startYear, 'input');
+    setClass(startAge, 'input');
+    setClass(openingBalance, 'input');
+    setClass(startcontributions, 'input');
+    setClass(numberOfPeriods, 'input');
+    setClass(contributionIncrease, 'input');
+    setClass(growthRate, 'input');
+
+    errorElem.innerText = "";
 
     //Define the settings
     let settings = new Settings(
@@ -42,8 +49,6 @@ form.addEventListener('submit', (e) => {
         getNumber(contributionIncrease, 'Float'),
         getNumber(growthRate, 'Float'),
     );
-    //console.log(settings);
-    
 
     //Define row for starting period
     let startRow = new TableRow(
@@ -53,7 +58,6 @@ form.addEventListener('submit', (e) => {
         getNumber(openingBalance, 'Int'), 
         getNumber(startcontributions, 'Int'), 
     );
-    //console.log(startRow);
 
     //Add the rest of the rows
     let rows = [];
@@ -69,22 +73,30 @@ form.addEventListener('submit', (e) => {
     }
     let table = new Table(rows);
 
-    //table.printRows();
-
     //Create dynamic HTML table
     tableBody = document.getElementById('table-body');
     let rowsHtml = table.rowsToHtml(settings);
-    //console.log(rowsHtml);
     tableBody.innerHTML = rowsHtml;
-
-
-
 });
 
+//When user clicks Clear button
+const clearButton = document.getElementById('clear-button');
+clearButton.addEventListener('click', (e) => {
+    //alert('clear button was clicked');
+    tableBody = document.getElementById('table-body');
+    tableBody.innerHTML = '';
+})
+
+//Helper functions
 function validate(field, errorMessage, errorMessages) {
     if (field.value === '' || field.value === null) {
         errorMessages.push(errorMessage);
+        field.classList.add('error');
     }
+}
+
+function setClass(field, className) {
+    field.className = className;
 }
 
 function getNumber(elem, numberType) {
@@ -93,7 +105,6 @@ function getNumber(elem, numberType) {
         if (numberType === "Float")
         return parseFloat(elem.value);
 }
-
 
 //References
 //https://www.youtube.com/watch?v=In0nB0ABaUk
@@ -104,3 +115,6 @@ function getNumber(elem, numberType) {
 //https://www.w3schools.com/jsref/prop_html_innerhtml.asp
 //https://stackoverflow.com/questions/12114570/how-to-align-texts-inside-of-an-input
 //https://pawelgrzybek.com/rounding-and-truncating-numbers-in-javascript/
+//https://www.geeksforgeeks.org/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript/
+//https://intellipaat.com/community/21064/how-to-change-an-elements-class-with-javascript
+//https://www.codegrepper.com/code-examples/css/how+to+remove+the+black+border+when+clicking+on+textbox+in+html

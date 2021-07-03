@@ -9,16 +9,17 @@
 </head>
 <body>
     <div class="container">
-        <div id="error"></div>
+        <div id="error" class="error-text"></div>
         <form action="/" id="input-form" method="GET">
-            <input type="number" class="input" name="year" id="year" placeholder="Start year" min="0" value="2021"/>
-            <input type="number" class="input" name="age" id="age" placeholder="Start age" min="0" value="42"/>
+            <input type="number" class="input" name="year" id="year" placeholder="Start year" min="1900" max="2100" value="2021"/>
+            <input type="number" class="input" name="age" id="age" placeholder="Start age" min="0" max="130" value="42"/>
             <input type="number" class="input" name="opening-balance" id="opening-balance" placeholder="Opening balance" step="0.01" min="0" value="400000"/>
             <input type="number" class="input" name="contributions" id="contributions" placeholder="Start contribution" step="0.01" min="0" value="8000"/>
             <input type="number" class="input" name="number-of-periods" id="number-of-periods" placeholder="Number of periods" min="0" value="30"/>
-            <input type="number" class="input" name="contribution-increase" id="contribution-increase" placeholder="Contribution increase" step="0.0001" min="0" value="0.02"/>
-            <input type="number" class="input" name="growth-rate" id="growth-rate" placeholder="Growth rate" step="0.0001" min="0" value="0.08"/>
+            <input type="number" class="input" name="contribution-increase" id="contribution-increase" placeholder="Contribution increase" step="0.0001" min="0" max="1" value="0.02"/>
+            <input type="number" class="input" name="growth-rate" id="growth-rate" placeholder="Growth rate" step="0.0001" min="0" max="1" value="0.08"/>
             <button type="submit" class="button">Calculate</button>
+            <button type="button" class="button" id="clear-button">Clear table</button>
         </form>
         <table>
             <thead>
@@ -31,19 +32,8 @@
                 <th>Closing balance</th>
             </thead>
             <tbody id="table-body">
-                
-
-
-
-
-
             </tbody>
-
-
-
         </table>
-
-
     </div>
     <script src="./Row.js"></script>
     <script src="./Settings.js"></script>
