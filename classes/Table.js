@@ -25,6 +25,7 @@ class Table {
             let rowHtml = 
                 `<tr>
                     <td>${row.period}</td>
+                    <td>${row.year}</td>
                     <td>${row.age}</td>
                     <td>${nfObject.format(Math.round(row.openingBalance))}</td>
                     <td>${nfObject.format(Math.round(row.contributions))}</td>
