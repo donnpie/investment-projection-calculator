@@ -28,8 +28,6 @@ body {
     outline: none;
 }
 
-/* How to not have border when input is selected? */
-
 .input::placeholder {
     color: #ddd;
 }
@@ -39,7 +37,6 @@ body {
 }
 
 .error{
-    /* background-color: yellow; */
     border: solid 1px red;
     color: red;
 }
