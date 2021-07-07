@@ -15,7 +15,7 @@ const form = document.getElementById('input-form');
 //When user clicks Calculate button
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    errorMessages = [];
+    let errorMessages = [];
 
     //Validate inputs
     validate(startYear, 'Start year is required', errorMessages)

@@ -4,7 +4,7 @@ const InputBox = (props) => {
     const [value, setValue] = useState(props.defaultValue); 
 
     return (
-        <input type={props.type} class={props.class} name={props.name} id={props.id} 
+        <input type={props.type} className={props.class} name={props.name} id={props.id} 
             placeholder={props.placeholder} min={props.min} max={props.max} defaultValue={value}
             step={props.step}/>
     )
