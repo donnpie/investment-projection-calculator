@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import InputBox from "./InputBox";
 import Button from "./Button";
+import Settings from '../classes/Settings';
+import TableRow from '../classes/TableRow';
+import Table from '../classes/Table';
 
 const InputGroup = () => {
     const [errorMessages, setErrorMessages] = useState([]); 
@@ -51,6 +54,38 @@ const InputGroup = () => {
             return;
         } else {console.log("there are no error messages");}
 
+         //Define the settings
+        let settings = new Settings(
+            getNumber(numberOfPeriods, 'Int'), 
+            getNumber(contributionIncrease, 'Float'),
+            getNumber(growthRate, 'Float'),
+        );
+        //console.log(settings);
+
+        //Define row for starting period
+        let startRow = new TableRow(
+            0, 
+            getNumber(startYear, 'Int'), 
+            getNumber(startAge, 'Int'), 
+            getNumber(openingBalance, 'Int'), 
+            getNumber(startcontributions, 'Int'), 
+        );
+        //console.log(startRow);
+
+        //Add the rest of the rows
+        let rows = [];
+        rows.push(startRow);
+        for (let i = 1; i <= settings.numOfPeriods; i++) {
+            const period = rows[i-1].period + 1;
+            const year = rows[i-1].year + 1;
+            const age = rows[i-1].age + 1;
+            const ob = rows[i-1].getClosingBalance(settings.growthRate);
+            const contributions = rows[i-1].contributions * (1+ settings.contributionIncreaseRate);
+            let newRow = new TableRow(period, year, age, ob, contributions);
+            rows.push(newRow);
+        }
+        let table = new Table(rows);
+        console.log(table);
     }
 
     const onCancel = () => {
@@ -89,6 +124,13 @@ function validate(field, errorMessage, errorMessages) {
         //console.log("validations passed")
         return true;
     }
+}
+
+function getNumber(elem, numberType) {
+    if (numberType === "Int")
+        return parseInt(elem.value);
+    if (numberType === "Float")
+        return parseFloat(elem.value);
 }
 
 export default InputGroup;
