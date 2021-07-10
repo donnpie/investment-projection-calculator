@@ -3,6 +3,7 @@ import InputGroup from './components/InputGroup';
 import TableDisplay from './components/TableDisplay';
 import Settings from './classes/Settings';
 import TableRow from './classes/TableRow';
+import TableRowDisplay from './components/TableRowDisplay';
 //import Table from './classes/Table';
 import './App.css';
 
@@ -127,18 +128,18 @@ function App() {
             </thead>
             <tbody id="table-body">
               {rows.map((row)=>{
-                const nfObject = new Intl.NumberFormat('en-US');
+                
                 return (
-                  <tr key={row.period}>
-                    <td>{row.period}</td>
-                    <td>{row.year}</td>
-                    <td>{row.age}</td>
-                    <td>{nfObject.format(Math.round(row.openingBalance))}</td>
-                    <td>{nfObject.format(Math.round(row.contributions))}</td>
-                    <td>{nfObject.format(Math.round(row.getInterestOnContributions(settings.growthRate)))}</td>
-                    <td>{nfObject.format(Math.round(row.getInterestOnOpeningBalance(settings.growthRate)))}</td>
-                    <td>{nfObject.format(Math.round(row.getClosingBalance(settings.growthRate)))}</td>
-                </tr>
+                  <TableRowDisplay 
+                    period={row.period}
+                    year={row.year}
+                    age={row.age}
+                    ob={row.openingBalance}
+                    contributions={row.contributions}
+                    interestOnContributions={row.getInterestOnContributions(settings.growthRate)}
+                    interestOnOpeningBalance={row.getInterestOnOpeningBalance(settings.growthRate)}
+                    closingBalance={row.getClosingBalance(settings.growthRate)}
+                  />
                 )
               })}
             </tbody>

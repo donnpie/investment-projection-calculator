@@ -27,3 +27,7 @@ body {
   border: solid 1px red;
   color: red;
 }
+
+#table-body {
+  text-align: right;
+}
