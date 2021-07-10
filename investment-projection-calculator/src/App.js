@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import InputGroup from './components/InputGroup';
-import TableDisplay from './components/TableDisplay';
 import Settings from './classes/Settings';
 import TableRow from './classes/TableRow';
 import TableRowDisplay from './components/TableRowDisplay';
-//import Table from './classes/Table';
 import './App.css';
 
 function App() {
@@ -19,8 +17,6 @@ function App() {
   const [rows, setRows] = useState([]);
   const [settings, setSettings] = useState();
 
- 
-
   const onFormSubmit = (event) => {
     event.preventDefault();
     const startYear = event.target.elements.year
@@ -31,15 +27,7 @@ function App() {
     const contributionIncrease = event.target.elements.contributionIncrease
     const growthRate = event.target.elements.growthRate
 
-    //console.log('startYear', startYear);
-    // console.log('startAge', startAge);
-    // console.log('openingBalance', openingBalance);
-    // console.log('startcontributions', startcontributions);
-    // console.log('numberOfPeriods', numberOfPeriods);
-    // console.log('contributionIncrease', contributionIncrease);
-    // console.log('growthRate', growthRate);
-
-    let _errorMessages = []; //Now using useState for this
+    let _errorMessages = []; 
 
     //Validate inputs
     setYearError(!validate(startYear, 'Start year is required', _errorMessages))
@@ -55,10 +43,10 @@ function App() {
     
     //Print error messages to screen if there are any error
     if (_errorMessages.length > 0) {
-        //errorElem.innerText = errorMessages.join(', ');
-        console.log("there are error messages!");
+        //console.log("there are error messages!");
         return;
-    } else {console.log("there are no error messages");}
+    } else {//console.log("there are no error messages");
+    }
 
      //Define the settings
     let _settings = new Settings(
@@ -82,9 +70,6 @@ function App() {
     //Add the rest of the rows
     let _rows = [];
     _rows.push(_startRow);
-    //console.log('startRow', startRow);
-      //setRows([startRow]);
-      //setRows(prevRows => {return [...prevRows, startRow]});
       for (let i = 1; i <= _settings.numOfPeriods; i++) {
         //console.log('i', i);
         const period = _rows[i-1].period + 1;
@@ -94,11 +79,9 @@ function App() {
         const contributions = _rows[i-1].contributions * (1 + _settings.contributionIncreaseRate);
         let newRow = new TableRow(period, year, age, ob, contributions);
         _rows.push(newRow);
-        //console.log(rows);
       }
       setRows(_rows);
-      console.log('rows', rows);
-    //let table = new TableDisplay(rows);
+      //console.log('rows', rows);
 }
   return (
     <div className="container">
@@ -112,37 +95,35 @@ function App() {
         contrIncrError={contrIncrError}
         growthRateError={growthRateError}
         />
-      {/* <TableDisplay /> */}
       <table>
-            <thead>
-                <tr>
-                    <th>Period</th>
-                    <th>Year</th>
-                    <th>Age</th>
-                    <th>Opening balance</th>
-                    <th>Contributions</th>
-                    <th>Interest on contributions</th>
-                    <th>Interest on OB</th>
-                    <th>Closing balance</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-              {rows.map((row)=>{
-                
-                return (
-                  <TableRowDisplay 
-                    period={row.period}
-                    year={row.year}
-                    age={row.age}
-                    ob={row.openingBalance}
-                    contributions={row.contributions}
-                    interestOnContributions={row.getInterestOnContributions(settings.growthRate)}
-                    interestOnOpeningBalance={row.getInterestOnOpeningBalance(settings.growthRate)}
-                    closingBalance={row.getClosingBalance(settings.growthRate)}
-                  />
-                )
-              })}
-            </tbody>
+        <thead>
+            <tr>
+                <th>Period</th>
+                <th>Year</th>
+                <th>Age</th>
+                <th>Opening balance</th>
+                <th>Contributions</th>
+                <th>Interest on contributions</th>
+                <th>Interest on OB</th>
+                <th>Closing balance</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+          {rows.map((row)=>{
+            return (
+              <TableRowDisplay key={row.period}
+                period={row.period}
+                year={row.year}
+                age={row.age}
+                ob={row.openingBalance}
+                contributions={row.contributions}
+                interestOnContributions={row.getInterestOnContributions(settings.growthRate)}
+                interestOnOpeningBalance={row.getInterestOnOpeningBalance(settings.growthRate)}
+                closingBalance={row.getClosingBalance(settings.growthRate)}
+              />
+            )
+          })}
+        </tbody>
         </table>
 
     </div>
@@ -152,14 +133,10 @@ function App() {
 //Helper functions
 function validate(field, errorMessage, errorMessages) {
   //returns true if validation is OK
-  //console.log('field',field);
-  //console.log(field.name);
   if (field.value === '' || field.value === null || field.value === undefined) {
       errorMessages.push(errorMessage);
-      //field.classList.add('error');
       return false;
   } else {
-      //console.log("validations passed")
       return true;
   }
 }

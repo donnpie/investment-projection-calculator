@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './InputBox.css';
 const InputBox = (props) => {
-    const [value, setValue] = useState(props.defaultValue); 
+    //const [value, setValue] = useState(props.defaultValue); 
 
     return (
         <input type={props.type} className={props.class} name={props.name} id={props.id} 
-            placeholder={props.placeholder} min={props.min} max={props.max} defaultValue={value}
+            placeholder={props.placeholder} min={props.min} max={props.max} defaultValue={props.defaultValue}
             step={props.step}/>
     )
 }
