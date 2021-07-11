@@ -83,9 +83,16 @@ function App() {
       setRows(_rows);
       //console.log('rows', rows);
 }
+
+const onCancel = () => {
+  //alert("onCancel event fired");
+  setRows([]);
+
+}
   return (
     <div className="container">
       <InputGroup onFormSubmit={onFormSubmit} 
+        onCancel={onCancel}
         errorMessages={errorMessages}
         yearError={yearError}
         ageError={ageError}
@@ -125,7 +132,6 @@ function App() {
           })}
         </tbody>
         </table>
-
     </div>
   );
 }

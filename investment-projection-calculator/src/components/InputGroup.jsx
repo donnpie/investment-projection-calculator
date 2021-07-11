@@ -2,13 +2,7 @@ import React from 'react';
 import InputBox from "./InputBox";
 import Button from "./Button";
 
-
-const InputGroup = ({onFormSubmit, errorMessages, yearError, ageError, obError, startConError, numOfPError, contrIncrError, growthRateError}) => {
-
-
-    const onCancel = () => {
-        alert("onCancel event fired");
-    }
+const InputGroup = ({onFormSubmit, onCancel, errorMessages, yearError, ageError, obError, startConError, numOfPError, contrIncrError, growthRateError}) => {
 
     return (
         <>
